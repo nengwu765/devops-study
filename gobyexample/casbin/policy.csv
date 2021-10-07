@@ -1,0 +1,19 @@
+p, zeta, data1, read, allow
+p, bob, data2, write, allow
+p, zeta, data2, write, deny
+p, zeta, data2, write, allow
+p, root, write-all-objects
+
+
+p, alice, data1, read
+p, bob, data2, write
+p, data2_admin, data2, read
+p, data2_admin, data2, write
+g, alice, data2_admin
+
+
+p, admin, tenant1, data1, read
+p, admin, tenant2, data2, read
+
+g, alice, admin, tenant1
+g, alice, user, tenant2
