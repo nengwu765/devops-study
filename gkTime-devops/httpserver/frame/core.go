@@ -1,7 +1,6 @@
 package frame
 
 import (
-	"flag"
 	"net/http"
 )
 
@@ -22,8 +21,5 @@ func (c *Core) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 }
 
 func (c *Core) Run(addr string) error {
-	// set default log level
-	flag.Set("v", string(LOG_INFO))
-
 	return http.ListenAndServe(addr, c)
 }

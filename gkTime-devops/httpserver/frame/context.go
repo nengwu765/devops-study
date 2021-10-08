@@ -3,6 +3,7 @@ package frame
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/golang/glog"
 	"net/http"
 )
 
@@ -39,6 +40,7 @@ func (c *Context) FormatString(code int, format string, values ...interface{}) {
 	if err != nil {
 		http.Error(c.Writer, err.Error(), http.StatusInternalServerError)
 	}
+	glog.V(LogInfo).Infof("request remote IP is %s, response status code is %d", c.Request.RemoteAddr, c.StatusCode)
 }
 
 func (c *Context) String(code int, str string) {
@@ -48,6 +50,7 @@ func (c *Context) String(code int, str string) {
 	if err != nil {
 		http.Error(c.Writer, err.Error(), http.StatusInternalServerError)
 	}
+	glog.V(LogInfo).Infof("request remote IP is %s, response status code is %d", c.Request.RemoteAddr, c.StatusCode)
 }
 
 func (c *Context) JSON(code int, obj interface{}) {
@@ -57,5 +60,6 @@ func (c *Context) JSON(code int, obj interface{}) {
 	if err := encoder.Encode(obj); err != nil {
 		http.Error(c.Writer, err.Error(), http.StatusInternalServerError)
 	}
+	glog.V(LogInfo).Infof("request remote IP is %s, response status code is %d", c.Request.RemoteAddr, c.StatusCode)
 }
 

@@ -1,21 +1,40 @@
 package main
 
 import (
+	"flag"
+	"github.com/golang/glog"
 	"gkTime-devops-httpserver/frame"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 )
 
-func main() {
-	core := frame.NewCore()
+// 自定义预设的 flag 参数， 直观便于理解
+var (
+	logLevel    string
+	logToStderr bool
+)
 
+func init() {
+	// frame.LogInfo 的类型是 glog.Level，直接string强制装换获取不到值
+	flag.StringVar(&logLevel, "logLevel", strconv.Itoa(int(frame.LogInfo)), "log level")
+	flag.BoolVar(&logToStderr, "logToStderr", true, "log output stderr")
+}
+
+func main() {
+
+	flag.Parse()
+	// glog init 预设的flag参数
+	_ = flag.Set("v", logLevel)
+	_ = flag.Set("logtostderr", strconv.FormatBool(logToStderr))
+	defer glog.Flush()
+
+	core := frame.NewCore()
 	// health check
 	core.Router.GET("/healthz", healthz)
-
 	// get headers
 	core.Router.GET("/getHeader", getHeader)
-
 	// get os version
 	core.Router.GET("/osVersion", osVersion)
 

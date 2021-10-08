@@ -17,7 +17,7 @@ func newRouter() *router {
 }
 
 func (r *router) addRoute(method, pattern string, handler HandleFunc) {
-	glog.V(LOG_ERR).Infof("Route %s - %s", method, pattern)
+	glog.V(LogInfo).Infof("Route %s - %s", method, pattern)
 	key := method + "-" + pattern
 	r.handlers[key] = handler
 }

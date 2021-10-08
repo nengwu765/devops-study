@@ -4,10 +4,10 @@ import "github.com/golang/glog"
 
 type LogLevel = glog.Level
 
+// 自定义常量方便后续的框架扩展
 const (
-	LOG_INFO LogLevel = 4
-	LOG_WARN LogLevel = 3
-	LOG_ERR LogLevel = 2
-	LOG_FATAL LogLevel = 1
+	LogInfo  LogLevel = 4
+	LogWarn  LogLevel = 3
+	LogErr   LogLevel = 2
+	LogFatal LogLevel = 1
 )
-
